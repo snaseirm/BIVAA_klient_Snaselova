@@ -50,6 +50,7 @@ export default {
 	--gray-3-hover: #A3A3A3;
 	--gray-3: #B5B5B5;
 	--gray-4: #E5E5E5;
+	--gray-5: #EFEFEF;
 	--white-1: #fff;
 	--white-2: #f4f9f9;
 	--black: #000000;

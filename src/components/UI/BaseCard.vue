@@ -25,7 +25,7 @@ export default {
 }
 
 .full {
-	background: var(--grey-3);
+	background: var(--gray-5);
 	max-width: 100%;
 
 }
@@ -47,6 +47,6 @@ export default {
 }
 
 .color {
-	border-color: var(--purple-2);
+	border-color: var(--blue);
 }
 </style>
