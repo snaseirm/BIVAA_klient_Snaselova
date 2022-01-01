@@ -57,9 +57,9 @@ export default {
 	left: 0;
 	height: 100vh;
 	width: 100%;
-	background-color: rgba(0, 0, 0, 0.75);
+	background-color: rgba(0, 0, 0, 0.85);
 	z-index: 10;
-	backdrop-filter: blur(4px);
+	backdrop-filter: blur(8px);
 }
 
 dialog {
@@ -71,14 +71,14 @@ dialog {
 	z-index: 100;
 	overflow: hidden;
 
-	border-radius: 1.2rem;
+	border-radius: 1.5rem;
 	border: none;
-	border: 0.3rem solid var(--purple-1);
+	box-shadow: 0rem 0.8rem 4rem var(--black);
 }
 
 header {
 	display: flex;
-	background: var(--purple-2);
+	background: var(--blue);
 	padding: 1.6rem;
 }
 
