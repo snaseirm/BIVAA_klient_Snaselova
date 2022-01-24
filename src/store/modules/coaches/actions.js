@@ -8,25 +8,28 @@ export default {
 			lastName: data.last,
 			description: data.desc,
 			hourlyRate: data.rate,
-			areas: data.areas
+			areas: data.areas,
+			customproperty: 'wqeqweqweazxdsadweqferfrfrfrfrfrf',
 		};
 
 		const databaseUrl = context.rootGetters.databaseUrl;
 		const token = context.rootGetters.token;
 
 		try {
-			await axios.put(
-				`${databaseUrl}/coaches/${userId}.json?auth=${token}`,
-				coachData
-			);
 
-			context.commit('registerCoach', {
-				...coachData,
-				id: userId
-			});
-		} catch (error) {
-			console.log(error);
-		}
+            let response = await axios.post(
+                `${databaseUrl}/coaches.json?auth=${token}`,
+                coachData
+            );
+            coachData['id']=response.data.name;
+            context.commit('registerCoach', {
+                ...coachData,
+                id: userId
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
 	},
 	async loadCoaches(context, payload) {
 		// used data already stored if its less than a minute old
