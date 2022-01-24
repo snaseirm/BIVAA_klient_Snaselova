@@ -9,7 +9,7 @@ export default {
 			description: data.desc,
 			hourlyRate: data.rate,
 			areas: data.areas,
-			customproperty: 'wqeqweqweazxdsadweqferfrfrfrfrfrf',
+			customproperty: '',
 		};
 
 		const databaseUrl = context.rootGetters.databaseUrl;
@@ -21,6 +21,7 @@ export default {
                 `${databaseUrl}/coaches.json?auth=${token}`,
                 coachData
             );
+
             coachData['id']=response.data.name;
             context.commit('registerCoach', {
                 ...coachData,
