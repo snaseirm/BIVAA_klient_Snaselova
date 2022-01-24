@@ -8,8 +8,7 @@ export default {
 			lastName: data.last,
 			description: data.desc,
 			hourlyRate: data.rate,
-			areas: data.areas,
-			customproperty: '',
+			areas: data.areas
 		};
 
 		const databaseUrl = context.rootGetters.databaseUrl;
