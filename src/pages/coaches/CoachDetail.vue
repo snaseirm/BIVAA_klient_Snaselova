@@ -16,7 +16,12 @@
 				<header>
 					<h3>Are you interested?</h3>
 					<base-button link :to="contactLink"> Buy it now </base-button>
+
+					<base-button mode="outline"> Edit </base-button>
+					<base-button mode="outline"> Delete </base-button>
+
 				</header>
+
 				<router-view v-slot="{ Component }">
 					<transition name="contact" mode="out-in">
 						<component :is="Component"></component>

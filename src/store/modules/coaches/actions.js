@@ -31,6 +31,65 @@ export default {
             console.log(error);
         }
 	},
+
+	async editCoach(context, data) {
+		const userId = context.rootGetters.userId;
+		const coachData = {
+			firstName: data.first,
+			lastName: data.last,
+			description: data.desc,
+			hourlyRate: data.rate,
+			areas: data.areas
+		};
+
+		const databaseUrl = context.rootGetters.databaseUrl;
+		const token = context.rootGetters.token;
+
+		try {
+            let response = await axios.put(
+                `${databaseUrl}/coaches/${coachData.id}.json?auth=${token}`,
+                coachData
+            );
+
+            coachData['id']=response.data.name;
+            context.commit('registerCoach', {
+                ...coachData,
+                id: userId
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+	},
+
+	async deleteCoach(context, data) {
+		const userId = context.rootGetters.userId;
+		const coachData = {
+			firstName: data.first,
+			lastName: data.last,
+			description: data.desc,
+			hourlyRate: data.rate,
+			areas: data.areas
+		};
+
+		const databaseUrl = context.rootGetters.databaseUrl;
+		const token = context.rootGetters.token;
+
+		try {
+			let response = await axios.delete(
+                `${databaseUrl}/coaches/${coachData.id}.json?auth=${token}`);
+
+            coachData['id']=response.data.name;
+            context.commit('registerCoach', {
+                ...coachData,
+                id: userId
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+	},
+
 	async loadCoaches(context, payload) {
 		// used data already stored if its less than a minute old
 		if (!payload.forceRefresh && !context.getters.shouldUpdate) return;
