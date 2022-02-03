@@ -5,6 +5,9 @@ export default {
 	deleteCoach(state,payload){
 		state.coaches = state.coaches.filter(obj => obj.id != payload);
 	},
+	editCoach(state, payload) {
+		state.coaches.put(payload);
+	},
 	setCoaches(state, payload) {
 		state.coaches = payload;
 	},

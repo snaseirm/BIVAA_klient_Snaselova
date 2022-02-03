@@ -17,7 +17,7 @@
 					<h3>Are you interested?</h3>
 					<base-button link :to="contactLink"> Buy it now </base-button>
 
-					<base-button v-if="isLoggedIn" mode="outline"> Edit </base-button>
+					<base-button v-if="isLoggedIn" mode="outline" @click="onEdit" > Edit </base-button>
 					<base-button v-if="isLoggedIn" mode="outline" @click="onDelete">Delete</base-button>
 
 				</header>
@@ -70,6 +70,11 @@ export default {
 		onDelete(){
 			console.debug('OnDelete called');
 			this.$store.dispatch('coaches/deleteCoach', this.selectedCoach);
+			this.$router.replace('/coaches');
+		},
+		onEdit(){
+			console.debug('OnEdit called');
+			this.$store.dispatch('coaches/editCoach', this.selectedCoach);
 			this.$router.replace('/coaches');
 		}
 	},
