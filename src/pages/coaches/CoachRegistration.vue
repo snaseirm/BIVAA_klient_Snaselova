@@ -20,6 +20,11 @@ export default {
 			// better than push bcs we cant go back to the page
 			this.$router.replace('/coaches');
 		},
+		editData(data) {
+			this.$store.dispatch('coaches/editCoach', data);
+			// better than push bcs we cant go back to the page
+			this.$router.replace('/coaches');
+		},
 	},
 };
 </script>

@@ -2,7 +2,6 @@ import axios from 'axios';
 
 export default {
 	async registerCoach(context, data) {
-		const userId = context.rootGetters.userId;
 		const coachData = {
 			firstName: data.first,
 			lastName: data.last,
@@ -23,8 +22,7 @@ export default {
 
             coachData['id']=response.data.name;
             context.commit('registerCoach', {
-                ...coachData,
-                id: userId
+                ...coachData
             });
 
         } catch (error) {
@@ -33,14 +31,10 @@ export default {
 	},
 
 	async editCoach(context, data) {
-		const userId = context.rootGetters.userId;
-		const coachData = {
-			firstName: data.first,
-			lastName: data.last,
-			description: data.desc,
-			hourlyRate: data.rate,
-			areas: data.areas
-		};
+		
+		console.debug(data);
+
+		const coachData = {...data};
 
 		const databaseUrl = context.rootGetters.databaseUrl;
 		const token = context.rootGetters.token;
@@ -51,10 +45,9 @@ export default {
                 coachData
             );
 
-            coachData['id']=response.data.name;
-            context.commit('registerCoach', {
-                ...coachData,
-                id: userId
+            coachData['id'] = response.data.name;
+            context.commit('editCoach', {
+                ...coachData
             });
 
         } catch (error) {
@@ -63,27 +56,18 @@ export default {
 	},
 
 	async deleteCoach(context, data) {
-		const userId = context.rootGetters.userId;
-		const coachData = {
-			firstName: data.first,
-			lastName: data.last,
-			description: data.desc,
-			hourlyRate: data.rate,
-			areas: data.areas
-		};
-
-		const databaseUrl = context.rootGetters.databaseUrl;
-		const token = context.rootGetters.token;
+		
+		let idToRemove = data.id;
 
 		try {
-			let response = await axios.delete(
-                `${databaseUrl}/coaches/${coachData.id}.json?auth=${token}`);
+			if(context.rootGetters.token == null )
+				throw 'User must be logged in for delete operation.'
 
-            coachData['id']=response.data.name;
-            context.commit('registerCoach', {
-                ...coachData,
-                id: userId
-            });
+				await axios.delete(`${context.rootGetters.databaseUrl}/coaches/${idToRemove}.json?auth=${context.rootGetters.token}`);
+
+				context.commit('deleteCoach',
+					data.id
+				);
 
         } catch (error) {
             console.log(error);

@@ -17,8 +17,8 @@
 					<h3>Are you interested?</h3>
 					<base-button link :to="contactLink"> Buy it now </base-button>
 
-					<base-button mode="outline"> Edit </base-button>
-					<base-button mode="outline"> Delete </base-button>
+					<base-button v-if="isLoggedIn" mode="outline"> Edit </base-button>
+					<base-button v-if="isLoggedIn" mode="outline" @click="onDelete">Delete</base-button>
 
 				</header>
 
@@ -42,6 +42,10 @@ export default {
 		};
 	},
 	computed: {
+		isLoggedIn() {
+			return this.$store.getters.isAuthenticated;
+		},
+
 		fullName() {
 			return `${this.selectedCoach.firstName} ${this.selectedCoach.lastName}`;
 		},
@@ -61,6 +65,15 @@ export default {
 			};
 		},
 	},
+
+	methods: {
+		onDelete(){
+			console.debug('OnDelete called');
+			this.$store.dispatch('coaches/deleteCoach', this.selectedCoach);
+			this.$router.replace('/coaches');
+		}
+	},
+
 	created() {
 		this.selectedCoach = this.$store.getters['coaches/coaches'].find(
 			(coach) => coach.id === this.id
