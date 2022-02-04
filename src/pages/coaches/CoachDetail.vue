@@ -16,8 +16,10 @@
 				<header>
 					<h3>Are you interested?</h3>
 					<base-button link :to="contactLink"> Buy it now </base-button>
+					
+					<base-button v-if="isLoggedIn && !isCoach && !isLoading" mode="outline"
+						link :to="{ name: 'edit' }">Edit </base-button>
 
-					<base-button v-if="isLoggedIn" mode="outline" @click="onEdit">Edit</base-button>
 					<base-button v-if="isLoggedIn" mode="outline" @click="onDelete">Delete</base-button>
 
 				</header>

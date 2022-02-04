@@ -47,6 +47,14 @@ const routes = [
 		}
 	},
 	{
+		path: '/edit',
+		name: 'edit',
+		component: CoachRegistration,
+		meta: {
+			requiresAuth: true
+		}
+	},
+	{
 		path: '/requests',
 		name: 'requests',
 		component: RequestsReceived,
