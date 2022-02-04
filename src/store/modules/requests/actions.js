@@ -9,10 +9,11 @@ export default {
 		};
 
 		const databaseUrl = context.rootGetters.databaseUrl;
+		const coachId = context.rootGetters.userId;
 
 		try {
 			const { data: responseData } = await axios.post(
-				`${databaseUrl}/requests/${payload.coachId}.json`,
+				`${databaseUrl}/requests/${coachId}.json`,
 				newRequest
 			);
 
@@ -28,7 +29,7 @@ export default {
 		}
 	},
 	async fetchRequests(context) {
-		const coachId = context.rootGetters.userId;
+		const userId = context.rootGetters.userId;
 		const databaseUrl = context.rootGetters.databaseUrl;
 
 		const token = context.rootGetters.token;
@@ -42,7 +43,7 @@ export default {
 
 		try {
 			const { data: responseData } = await axios.get(
-				`${databaseUrl}/requests/${coachId}.json`,
+				`${databaseUrl}/requests/${userId}.json`,
 				options
 			);
 
@@ -50,7 +51,7 @@ export default {
 			for (const key in responseData) {
 				const request = {
 					id: key,
-					coachId,
+					userId,
 					userEmail: responseData[key].userEmail,
 					message: responseData[key].message,
 					timestamp: responseData[key].timestamp
