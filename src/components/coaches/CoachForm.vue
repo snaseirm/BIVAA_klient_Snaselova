@@ -81,7 +81,7 @@
 		<p v-if="!formIsValid" class="errors">
 			Please fix the above errors and try again
 		</p>
-		<base-button class="submit-btn">Add product</base-button>
+		<base-button class="submit-btn">{{saveBtnText()}}</base-button>
 	</form>
 </template>
 
@@ -89,9 +89,11 @@
 import BaseButton from '../UI/BaseButton.vue';
 export default {
 	emits: ['save-data'],
+	props:['dataToEdit'],
 	components: { BaseButton },
 	data() {
-		return {
+		
+		let data = {
 			firstName: {
 				val: '',
 				isValid: true,
@@ -114,6 +116,21 @@ export default {
 			},
 			formIsValid: true,
 		};
+		
+		console.debug('bbfsdfsdfd')
+		console.debug(JSON.stringify(data))
+		console.debug(JSON.stringify(this.dataToEdit))
+		if (this.dataToEdit != null){
+			data.firstName.val = this.dataToEdit.firstName;
+			data.lastName.val = this.dataToEdit.lastName;
+			data.description.val = this.dataToEdit.description;
+			data.rate.val = this.dataToEdit.hourlyRate;
+			data.areas.val = this.dataToEdit.areas;
+			data['id'] = this.dataToEdit.id;
+		}
+		console.debug(JSON.stringify(data))
+		console.debug('end')
+		return data;
 	},
 	methods: {
 		validateForm() {
@@ -161,6 +178,14 @@ export default {
 		styleInvalid(value) {
 			return { invalid: !value.isValid };
 		},
+		saveBtnText(){
+			if(this.id != undefined){
+				return 'Save changes';
+			}
+			else{
+				return 'Add product';
+			}
+		}
 	},
 };
 </script>
