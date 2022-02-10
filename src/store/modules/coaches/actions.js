@@ -34,18 +34,25 @@ export default {
 		
 		console.debug(data);
 
-		const coachData = {...data};
+		const coachData = {
+			firstName: data.first,
+			lastName: data.last,
+			description: data.desc,
+			hourlyRate: data.rate,
+			areas: data.areas
+		};
+
 
 		const databaseUrl = context.rootGetters.databaseUrl;
 		const token = context.rootGetters.token;
 
 		try {
-            let response = await axios.put(
-                `${databaseUrl}/coaches/${coachData.id}.json?auth=${token}`,
+            await axios.put(
+                `${databaseUrl}/coaches/${data.id}.json?auth=${token}`,
                 coachData
             );
 
-            coachData['id'] = response.data.name;
+            coachData['id'] = data.id;
             context.commit('editCoach', {
                 ...coachData
             });
@@ -100,6 +107,44 @@ export default {
 				context.commit('setCoaches', coaches);
 				context.commit('setFetchTimestamp');
 			}
+		} catch (err) {
+			console.log(err.response);
+			const error = new Error(
+				err.response.data.error || 'Failed to fetch'
+			);
+			throw error;
+		}
+		
+		},
+
+	async refreshCoach(context, payload){
+
+		console.debug(payload);
+		const databaseUrl = context.rootGetters.databaseUrl;
+		try {
+
+            let url = `${databaseUrl}/coaches/${payload}.json`;
+
+			let result = await axios.get(
+				url
+			);
+
+			let coachData = result.data;
+
+			console.debug(JSON.stringify(coachData));
+
+			const coach = {
+				id: payload,
+				firstName: coachData.firstName,
+				lastName: coachData.lastName,
+				description: coachData.description,
+				hourlyRate: coachData.hourlyRate,
+				areas: coachData.areas
+			};
+
+			context.commit('editCoach', coach);
+
+			return coach;
 		} catch (err) {
 			console.log(err.response);
 			const error = new Error(
