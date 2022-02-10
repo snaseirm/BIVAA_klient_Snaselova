@@ -18,7 +18,7 @@
 					<base-button link :to="contactLink"> Buy it now </base-button>
 					
 					<base-button v-if="isLoggedIn && !isCoach && !isLoading" mode="outline"
-						link :to="{ name: 'edit' }">Edit </base-button>
+						link :to="coachEditLink">Edit </base-button>
 
 					<base-button v-if="isLoggedIn" mode="outline" @click="onDelete">Delete</base-button>
 
@@ -44,6 +44,13 @@ export default {
 		};
 	},
 	computed: {
+	coachEditLink() {
+			// return `${this.$route.path}/${this.id}/contact`;
+			return {
+				name: 'edit',
+				params: { id: this.id },
+			};
+		},
 		isLoggedIn() {
 			return this.$store.getters.isAuthenticated;
 		},
