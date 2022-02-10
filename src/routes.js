@@ -16,6 +16,7 @@ const CoachDetail = () => import('./pages/coaches/CoachDetail.vue');
 const CoachRegistration = () => import('./pages/coaches/CoachRegistration.vue');
 const ContactCoach = () => import('./pages/requests/ContactCoach.vue');
 const RequestsReceived = () => import('./pages/requests/RequestsReceived.vue');
+const CoachEdit = ()=> import('./pages/coaches/CoachEdit.vue');
 const UserAuth = () => import('./pages/auth/UserAuth.vue');
 
 const routes = [
@@ -47,9 +48,10 @@ const routes = [
 		}
 	},
 	{
-		path: '/edit',
+		path: '/edit/:id',
 		name: 'edit',
-		component: CoachRegistration,
+		props: true,
+		component: CoachEdit,
 		meta: {
 			requiresAuth: true
 		}
